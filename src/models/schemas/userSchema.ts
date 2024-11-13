@@ -1,5 +1,16 @@
 import { model, Schema } from "mongoose";
-import IUser from "../types/iuser";
+import IUser, { Weapon } from "../types/iuser";
+
+const weaponSchema = new Schema<Weapon>({
+    name: {
+        type: String,
+        required: true
+    },
+    amount: {
+        type: Number,
+        required: true
+    }
+})
 
 const userSchema = new Schema<IUser>({
     username: {
@@ -21,7 +32,7 @@ const userSchema = new Schema<IUser>({
         default: null
     },
     ammo: [{
-        type: Object,
+        type: weaponSchema,
         required: true
     }]
 })
