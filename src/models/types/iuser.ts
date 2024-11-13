@@ -1,3 +1,4 @@
+import { Document } from "mongoose"
 import LOCATIONS from "./enums/locations"
 import ORGANIZATION from "./enums/organizations"
 
@@ -6,8 +7,7 @@ export interface Weapon {
     amount: number
 }
 
-interface IUser {
-    _id?: string
+interface IUser extends Document {
     username: string
     password: string
     organization: ORGANIZATION
