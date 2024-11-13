@@ -5,6 +5,7 @@ import { connectToMongodb } from "./config/db";
 import cors from "cors"
 import { Server } from "socket.io";
 import { handleSocketConnection } from "./sockets/io";
+import usersRouter from "./routes/usersRouter"
 
 const PORT = process.env.POTR || 3000 
 
@@ -23,6 +24,8 @@ connectToMongodb()
 
 app.use(express.json())
 app.use(cors())
+
+app.use("/api/users", usersRouter)
 
 app.listen(PORT, () => {
     console.log(`Server started, Visit "http://localhost:${PORT}"`)
