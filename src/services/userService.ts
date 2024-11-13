@@ -14,7 +14,9 @@ export const userLogin = async (user: LoginDto) => {
             username: user.username,
           }).lean();
         if (!userFromDatabase) throw new Error("You missing something check if you'r username or password is correct");
+
         const matchPass = await compare(user.password, userFromDatabase.password);
+        
         if (!matchPass) throw new Error("You missing something check if you'r username or password is correct");
         // gen token
         const token = await jwt.sign(
@@ -53,30 +55,30 @@ const initialArmament = (user: IUser) => {
     user.ammo = []
     for (let i = 0; i < organization.length; i++) {
         
-        if (organization[i].name == `${user.organization} - ${user.location}`) {
+        if ((user.organization == "IDF" && organization[i].name == `${user.organization} - ${user.location}`) || (user.organization != "IDF" && organization[i].name == user.organization)) {
             let resources = organization[i].resources
 
             for (let idx = 0; idx < resources.length; idx++) {            
                 user.ammo!.push(resources[idx]) 
-                console.log(user.ammo) 
             }
             return 
-        }         
+        }       
     } 
 }
 
 export const createNewUser = async (newUser: IUser) => {
     try {
         if (!realOrganization(newUser)) {
-            throw new Error("Ther is no organization like that")
+            throw new Error("There is no organization like that")
         }
         const encPass = await hash(newUser.password, 10);
         newUser.password = encPass;
+        newUser.action = []
         initialArmament(newUser)
         const createUser = new Users(newUser);
         return await createUser.save();
     } catch (err) { 
         console.log(err);
-        throw new Error("Can't create new user");
+        throw err;
     }
 }
