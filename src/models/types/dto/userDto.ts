@@ -3,3 +3,7 @@ export interface LoginDto {
     password: string
 }
 
+export interface GetDataDto {
+    id: string
+}
+

@@ -6,6 +6,7 @@ import cors from "cors"
 import { Server } from "socket.io";
 import { handleSocketConnection } from "./sockets/io";
 import usersRouter from "./routes/usersRouter"
+import actionRouter from "./routes/actionRouter"
 
 const PORT = process.env.POTR || 3000 
 
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use("/api/users", usersRouter)
+app.use("/api/action", actionRouter)
 
 app.listen(PORT, () => {
     console.log(`Server started, Visit "http://localhost:${PORT}"`)
