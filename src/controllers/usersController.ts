@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { userLogin } from "../services/userService";
+import { createNewUser, userLogin } from "../services/userService";
 
 export const login = async (req: Request, res: Response) => {
     try {
@@ -11,9 +11,10 @@ export const login = async (req: Request, res: Response) => {
 }
 
 export const register = async (req: Request, res: Response) => {
- try {
-    
- } catch (err) {
-    
- }
+    try {
+        const newUser = await createNewUser(req.body);
+        res.status(201).json(newUser);
+      } catch (err) {
+        res.status(400).json((err as Error).message);
+      }
 }
