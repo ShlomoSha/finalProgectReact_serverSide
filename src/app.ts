@@ -29,6 +29,6 @@ app.use(cors())
 app.use("/api/users", usersRouter)
 app.use("/api/action", actionRouter)
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server started, Visit "http://localhost:${PORT}"`)
 })
