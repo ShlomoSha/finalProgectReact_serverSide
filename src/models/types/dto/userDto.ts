@@ -6,4 +6,3 @@ export interface LoginDto {
 export interface GetDataDto {
     id: string
 }
-

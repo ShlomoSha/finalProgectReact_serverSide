@@ -31,7 +31,7 @@ export const userLogin = async (user: LoginDto) => {
             expiresIn: "10m",
         }
         );
-    return { ...userFromDatabase, token, password: "*******" };
+    return {token};
   } catch (err) {
     throw err;
   }
