@@ -4,9 +4,9 @@ import "dotenv/config"
 import { connectToMongodb } from "./config/db";
 import cors from "cors"
 import { Server } from "socket.io";
-import { handleSocketConnection } from "./sockets/io";
 import usersRouter from "./routes/usersRouter"
 import actionRouter from "./routes/actionRouter"
+import { handleSocketConnection } from "./sockets/socketService";
 
 const PORT = process.env.POTR || 3000 
 

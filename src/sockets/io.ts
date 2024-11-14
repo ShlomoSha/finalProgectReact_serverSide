@@ -1,8 +1,6 @@
-import { Socket } from "socket.io";
+import { io } from "../app";
+import { handIeintercept, handleAttact } from "./socketService";
 
-export const handleSocketConnection = (client: Socket) => {
-    console.log(`[socket.io] New Connection ${client.id}`)
-    client.on('disconncet', () => {
-        console.log('user disconncet')
-    })
-}
+io.on("attact", handleAttact)
+
+io.on("intercept", handIeintercept)
