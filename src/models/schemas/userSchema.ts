@@ -13,7 +13,11 @@ const weaponSchema = new Schema<Weapon>({
 })
 
 const actionSchema = new Schema<Action>({
-    name: {
+    id: {
+        type: String,
+        required: true
+    },
+    rocket: {
         type: String,
         required: true
     },

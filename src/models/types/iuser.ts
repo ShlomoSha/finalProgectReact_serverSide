@@ -9,7 +9,8 @@ export interface Weapon {
 }
 
 export interface Action {
-    name: string
+    id: string
+    rocket: string
     status: ROCKET_STATUS
 }
 
