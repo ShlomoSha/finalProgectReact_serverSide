@@ -4,6 +4,7 @@ import { LoginDto } from "../models/types/dto/userDto"
 import jwt from "jsonwebtoken";
 import IUser from "../models/types/iuser";
 import organization from "../../data/organizations.json"
+import rocketData from "../../data/missiles.json"
 import ORGANIZATION from "../models/types/enums/organizations";
 import LOCATIONS from "../models/types/enums/locations";
 
@@ -53,17 +54,28 @@ const realOrganization = (user: IUser) => {
 // find organization from json file and armament user
 const initialArmament = (user: IUser) => {
     user.ammo = []
-    for (let i = 0; i < organization.length; i++) {
-        
-        if ((user.organization == "IDF" && organization[i].name == `${user.organization} - ${user.location}`) || (user.organization != "IDF" && organization[i].name == user.organization)) {
-            let resources = organization[i].resources
+    let resources = null
 
-            for (let idx = 0; idx < resources.length; idx++) {            
-                user.ammo!.push(resources[idx]) 
-            }
-            return 
+    // find the resources by organization
+    for (let i = 0; i < organization.length; i++) {        
+        if ((user.organization == "IDF" && organization[i].name == `${user.organization} - ${user.location}`) || (user.organization != "IDF" && organization[i].name == user.organization)) {
+            resources = organization[i].resources 
         }       
-    } 
+    }
+    // push rexourcer in user.ammo
+    for (let idx = 0; idx < resources!.length; idx++) {            
+        user.ammo!.push(resources![idx]) 
+    }
+    // push in user.ammo speed and intercepts
+    for (let i = 0; i < user.ammo.length; i++) {
+        for (let idx = 0; idx < rocketData.length; idx++) {
+            if (rocketData[idx].name == user.ammo[i].name) {
+                user.ammo[i].speed = rocketData[idx].speed
+                user.ammo[i].intercepts = rocketData[idx].intercepts
+            }            
+        }        
+    }
+    return
 }
 
 export const createNewUser = async (newUser: IUser) => {

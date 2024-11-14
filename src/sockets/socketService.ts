@@ -13,14 +13,6 @@ export const handleSocketConnection = (client: Socket) => {
     })
 }
 
-const speedRocket = (rocket: string) => {
-    for (let i = 0; i < rocketData.length; i++) {
-        if (rocketData[i].name == rocket) {
-            return rocketData[i].speed
-        }        
-    }
-}
-
 // this function reduced the armament of user if him attacted or intercepted
 const reduceArmament = async (data: SocketDto): Promise<void> => {
 
@@ -74,7 +66,6 @@ const updateStatusAction = async (actionId: string, attactById: string) => {
 
 export const handleAttact = async (attact: Socket, data: SocketDto) => {
     data.id = v4()
-    data.timeHit = speedRocket(data.rocket)
     io.emit('someoneAttact', data)
     await addDataIntoAction(data)
     await reduceArmament(data)

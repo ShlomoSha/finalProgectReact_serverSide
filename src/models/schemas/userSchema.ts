@@ -9,7 +9,9 @@ const weaponSchema = new Schema<Weapon>({
     amount: {
         type: Number,
         required: true
-    }
+    },
+    intercepts: [{type: String}],
+    speed: Number
 })
 
 const actionSchema = new Schema<Action>({
