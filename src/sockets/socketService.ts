@@ -4,12 +4,21 @@ import SocketDto from "./socketDto"
 import Users from "../models/schemas/userSchema"
 import ROCKET_STATUS from "../models/types/enums/rocketStatus"
 import { v4 } from "uuid"
+import rocketData from "../../data/missiles.json"
 
 export const handleSocketConnection = (client: Socket) => {
     console.log(`[socket.io] New Connection ${client.id}`)
     client.on('disconncet', () => {
         console.log(`${client.id} disconncet`)
     })
+}
+
+const speedRocket = (rocket: string) => {
+    for (let i = 0; i < rocketData.length; i++) {
+        if (rocketData[i].name == rocket) {
+            return rocketData[i].speed
+        }        
+    }
 }
 
 // this function reduced the armament of user if him attacted or intercepted
@@ -65,6 +74,7 @@ const updateStatusAction = async (actionId: string, attactById: string) => {
 
 export const handleAttact = async (attact: Socket, data: SocketDto) => {
     data.id = v4()
+    data.timeHit = speedRocket(data.rocket)
     io.emit('someoneAttact', data)
     await addDataIntoAction(data)
     await reduceArmament(data)

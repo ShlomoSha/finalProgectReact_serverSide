@@ -7,6 +7,7 @@ export default interface SocketDto {
     attactById: string
     rocket: string
     area: LOCATIONS
+    timeHit: number | undefined
     organization: ORGANIZATION
     status: ROCKET_STATUS
     interceptBy?: string
