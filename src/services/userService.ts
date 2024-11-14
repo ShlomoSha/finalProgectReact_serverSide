@@ -39,7 +39,7 @@ export const userLogin = async (user: LoginDto) => {
 
 // check if ther is organization like that
 const realOrganization = (user: IUser) => {
-    if (user.organization == 'IDF') {
+    if (user.organization == 'IDF') {   
         if (Object.values(LOCATIONS).includes(user.location!)) {
             return true
         }

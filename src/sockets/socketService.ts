@@ -19,9 +19,9 @@ const reduceArmament = async (data: SocketDto): Promise<void> => {
     const userId = data.status == "intercepted" ? data.interceptBy : data.attactById 
 
     const userAttacted = await Users.findById(userId).lean()
-    for (let i = 0; i < userAttacted!.ammo.length; i++) {
-        if(userAttacted!.ammo[i].name == data.rocket) {
-            userAttacted!.ammo[i].amount -= 1
+    for (let i = 0; i < userAttacted!.ammo!.length; i++) {
+        if(userAttacted!.ammo![i].name == data.rocket) {
+            userAttacted!.ammo![i].amount -= 1
             await userAttacted!.save()
             return
         }
@@ -54,7 +54,7 @@ const updateStatusAction = async (actionId: string, attactById: string) => {
         for (let i = 0; i < user.action!.length; i++) {
            if (user.action![i].id == actionId) {
             user.action![i].status = 'intercepted' as ROCKET_STATUS
-            await user.save()
+            await user.save() 
             return
            }        
         }

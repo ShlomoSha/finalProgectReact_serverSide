@@ -21,8 +21,8 @@ interface IUser extends Document {
     password: string
     organization: ORGANIZATION
     location?: LOCATIONS
-    ammo: Weapon[]
-    action?: Action[]    
+    ammo?: Weapon[]
+    action?: Action[]     
 }
 
-export default IUser
+export default IUser 
